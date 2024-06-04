@@ -1,0 +1,103 @@
+﻿<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notícias do Mar</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #e0f7fa;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+            overflow: hidden;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .header {
+            text-align: center;
+            padding: 20px 0;
+            margin-bottom: 30px;
+            grid-column: 1 / -1;
+        }
+        .header h1 {
+            font-size: 2.5em;
+            margin: 0;
+            color: #00796b;
+        }
+        .news-item {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            height: 400px;
+        }
+        .news-item:hover {
+            transform: scale(1.05);
+        }
+        .news-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+        .news-content {
+            text-align: center;
+        }
+        .news-content h2 {
+            margin-top: 0;
+            color: #00796b;
+            font-size: 1.5em;
+        }
+        .news-content p {
+            font-size: 1em;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Notícias do Mar</h1>
+        </div>
+        <div class="news-item">
+            <img src="https://cdn.entrypoint.directory/assets/46746/produtos/605505/142.jpg" alt="Imagem de uma onda no mar">
+            <div class="news-content">
+                <h2>Estudo revela aumento do nível do mar</h2>
+                <p>Pesquisadores alertam que o nível do mar está subindo mais rápido do que o previsto, ameaçando comunidades costeiras em todo o mundo.</p>
+            </div>
+        </div>
+        <div class="news-item">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-GxU7zPQS3MWfMNEcbVDmZ_yZhhTSOoU35A&s" alt="Imagem de um recife de corais">
+            <div class="news-content">
+                <h2>Recifes de corais em perigo</h2>
+                <p>Os recifes de corais estão enfrentando sérios riscos devido ao aquecimento global e à acidificação dos oceanos, afetando a biodiversidade marinha.</p>
+            </div>
+        </div>
+        <div class="news-item">
+            <img src="https://irrigazine.wordpress.com/wp-content/uploads/2016/07/alga-marinha-3-550x412.jpg?w=640" alt="Imagem de uma tartaruga marinha">
+            <div class="news-content">
+                <h2>Conservação de tartarugas marinhas</h2>
+                <p>Iniciativas de conservação estão ajudando a proteger tartarugas marinhas em várias regiões do mundo, mas desafios persistem devido à poluição e pesca ilegal.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

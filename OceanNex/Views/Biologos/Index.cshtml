@@ -1,0 +1,65 @@
+﻿@model IEnumerable<OceanNex.Models.Biologo>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NumeroRegistro)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CPF)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CRBio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NomeConta)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Senha)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumeroRegistro)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CPF)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CRBio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NomeConta)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Senha)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ContaId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ContaId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ContaId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
