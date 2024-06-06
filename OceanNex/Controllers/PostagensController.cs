@@ -10,23 +10,22 @@ using OceanNex.Persistencia;
 
 namespace OceanNex.Controllers
 {
-    public class PredicoesController : Controller
+    public class PostagensController : Controller
     {
         private readonly OracleFIAPDbContext _context;
 
-        public PredicoesController(OracleFIAPDbContext context)
+        public PostagensController(OracleFIAPDbContext context)
         {
             _context = context;
         }
 
-        // GET: Predicoes
+        // GET: Postagens
         public async Task<IActionResult> Index()
         {
-            var oracleFIAPDbContext = _context.Predicao.Include(p => p.Conta);
-            return View(await oracleFIAPDbContext.ToListAsync());
+            return View(await _context.Postagem.ToListAsync());
         }
 
-        // GET: Predicoes/Details/5
+        // GET: Postagens/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -34,42 +33,41 @@ namespace OceanNex.Controllers
                 return NotFound();
             }
 
-            var predicao = await _context.Predicao
-                .Include(p => p.Conta)
-                .FirstOrDefaultAsync(m => m.PredicaoId == id);
-            if (predicao == null)
+            var postagem = await _context.Postagem.Include(x => x.Biologo)
+                .FirstOrDefaultAsync(m => m.PostagemId == id);
+            if (postagem == null)
             {
                 return NotFound();
             }
 
-            return View(predicao);
+            return View(postagem);
         }
 
-        // GET: Predicoes/Create
+        // GET: Postagens/Create
         public IActionResult Create()
         {
-            ViewData["ContaId"] = new SelectList(_context.Conta, "ContaId", "Email");
+            ViewData["ContaId"] = new SelectList(_context.Biologo, "ContaId", "CRBio");
             return View();
         }
 
-        // POST: Predicoes/Create
+        // POST: Postagens/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PredicaoId,TaxaPredicao,DescricaoPredicao,ContaId")] Predicao predicao)
+        public async Task<IActionResult> Create([Bind("PostagemId,Titulo,Conteudo,Bibliografia,ContaId")] Postagem postagem)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(predicao);
+                _context.Add(postagem);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ContaId"] = new SelectList(_context.Conta, "ContaId", "Email", predicao.ContaId);
-            return View(predicao);
+            ViewData["ContaId"] = new SelectList(_context.Biologo, "ContaId", "CRBio", postagem.ContaId);
+            return View(postagem);
         }
 
-        // GET: Predicoes/Edit/5
+        // GET: Postagens/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -77,23 +75,23 @@ namespace OceanNex.Controllers
                 return NotFound();
             }
 
-            var predicao = await _context.Predicao.FindAsync(id);
-            if (predicao == null)
+            var postagem = await _context.Postagem.FindAsync(id);
+            if (postagem == null)
             {
                 return NotFound();
             }
-            ViewData["ContaId"] = new SelectList(_context.Conta, "ContaId", "Email", predicao.ContaId);
-            return View(predicao);
+            ViewData["ContaId"] = new SelectList(_context.Biologo, "ContaId", "CRBio", postagem.ContaId);
+            return View(postagem);
         }
 
-        // POST: Predicoes/Edit/5
+        // POST: Postagens/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("PredicaoId,TaxaPredicao,DescricaoPredicao,ContaId")] Predicao predicao)
+        public async Task<IActionResult> Edit(int id, [Bind("PostagemId,Titulo,Conteudo,Bibliografia,ContaId")] Postagem postagem)
         {
-            if (id != predicao.PredicaoId)
+            if (id != postagem.PostagemId)
             {
                 return NotFound();
             }
@@ -102,12 +100,12 @@ namespace OceanNex.Controllers
             {
                 try
                 {
-                    _context.Update(predicao);
+                    _context.Update(postagem);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!PredicaoExists(predicao.PredicaoId))
+                    if (!PostagemExists(postagem.PostagemId))
                     {
                         return NotFound();
                     }
@@ -118,11 +116,11 @@ namespace OceanNex.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ContaId"] = new SelectList(_context.Conta, "ContaId", "Email", predicao.ContaId);
-            return View(predicao);
+            ViewData["ContaId"] = new SelectList(_context.Biologo, "ContaId", "CRBio", postagem.ContaId);
+            return View(postagem);
         }
 
-        // GET: Predicoes/Delete/5
+        // GET: Postagens/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -130,35 +128,34 @@ namespace OceanNex.Controllers
                 return NotFound();
             }
 
-            var predicao = await _context.Predicao
-                .Include(p => p.Conta)
-                .FirstOrDefaultAsync(m => m.PredicaoId == id);
-            if (predicao == null)
+            var postagem = await _context.Postagem
+                .FirstOrDefaultAsync(m => m.PostagemId == id);
+            if (postagem == null)
             {
                 return NotFound();
             }
 
-            return View(predicao);
+            return View(postagem);
         }
 
-        // POST: Predicoes/Delete/5
+        // POST: Postagens/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var predicao = await _context.Predicao.FindAsync(id);
-            if (predicao != null)
+            var postagem = await _context.Postagem.FindAsync(id);
+            if (postagem != null)
             {
-                _context.Predicao.Remove(predicao);
+                _context.Postagem.Remove(postagem);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool PredicaoExists(int id)
+        private bool PostagemExists(int id)
         {
-            return _context.Predicao.Any(e => e.PredicaoId == id);
+            return _context.Postagem.Any(e => e.PostagemId == id);
         }
     }
 }

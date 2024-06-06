@@ -28,7 +28,7 @@ namespace OceanNex.Persistencia.Mapeamento
             builder.Property(b => b.Senha)
             .IsRequired()
             .HasColumnName("ds_senha")
-            .HasAnnotation("Senha", "O campo Senha é obrigatorio");
+            .HasAnnotation("Email", "O campo Email é obrigatorio");
         }
     }
 }

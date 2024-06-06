@@ -22,7 +22,6 @@ namespace OceanNex.Persistencia.Mapeamento
 
             builder.Property(b => b.CRBio)
             .HasMaxLength(11)
-            .HasColumnName("cd_crbio")
             .HasAnnotation("CRBio", "O CRBio deve conter no máximo 11 caracteres.");
         }
     }

@@ -23,7 +23,7 @@ namespace OceanNex.Persistencia.Mapeamento
 
             builder.Property(b => b.DescricaoPredicao)
             .IsRequired()
-            .HasColumnName("ds_predicao")
+            .HasColumnName("ds_resultado_predicao")
             .HasAnnotation("DescricaoPredicao", "O campo Descricao Predicao é obrigatorio");
         }
     }

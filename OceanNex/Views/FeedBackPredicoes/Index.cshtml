@@ -21,6 +21,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Predicao)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Conta)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -35,6 +38,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Predicao.DescricaoPredicao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Conta.Email)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.FeedBackPredicaoId">Edit</a> |

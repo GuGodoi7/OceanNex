@@ -11,10 +11,12 @@
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="StatusFeedBackPredicao" class="control-label"></label>
-                <input asp-for="StatusFeedBackPredicao" class="form-control" />
+                <select asp-for="StatusFeedBackPredicao" class="form-control">
+                    <option value="Positivo">Positivo</option>
+                    <option value="Negativo">Negativo</option>
+                </select>
                 <span asp-validation-for="StatusFeedBackPredicao" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -25,6 +27,10 @@
             <div class="form-group">
                 <label asp-for="PredicaoId" class="control-label"></label>
                 <select asp-for="PredicaoId" class ="form-control" asp-items="ViewBag.PredicaoId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="ContaId" class="control-label"></label>
+                <select asp-for="ContaId" class ="form-control" asp-items="ViewBag.ContaId"></select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

@@ -15,13 +15,26 @@
             <input type="hidden" asp-for="FeedBackPostagemId" />
             <div class="form-group">
                 <label asp-for="StatusFeedBackPostagem" class="control-label"></label>
-                <input asp-for="StatusFeedBackPostagem" class="form-control" />
+                <select asp-for="StatusFeedBackPostagem" class="form-control">
+                    <option value="Positivo">Positivo</option>
+                    <option value="Negativo">Negativo</option>
+                </select>
                 <span asp-validation-for="StatusFeedBackPostagem" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="DescricaoFeedBackPostagem" class="control-label"></label>
                 <input asp-for="DescricaoFeedBackPostagem" class="form-control" />
                 <span asp-validation-for="DescricaoFeedBackPostagem" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ContaId" class="control-label"></label>
+                <select asp-for="ContaId" class="form-control" asp-items="ViewBag.ContaId"></select>
+                <span asp-validation-for="ContaId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PostagemId" class="control-label"></label>
+                <select asp-for="PostagemId" class="form-control" asp-items="ViewBag.PostagemId"></select>
+                <span asp-validation-for="PostagemId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

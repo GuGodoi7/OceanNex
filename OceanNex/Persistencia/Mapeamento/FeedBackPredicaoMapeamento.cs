@@ -13,16 +13,16 @@ namespace OceanNex.Persistencia.Mapeamento
             builder.HasKey(b => b.FeedBackPredicaoId);
 
             builder.Property(b => b.FeedBackPredicaoId)
-            .HasColumnName("id_feedback_postagem");
+            .HasColumnName("id_feedback_predicao");
 
             builder.Property(b => b.StatusFeedBackPredicao)
             .IsRequired()
-            .HasColumnName("st_feedback_postagem")
+            .HasColumnName("st_feedback_predicao")
             .HasAnnotation("DescricaoFeedBackPredicao", "O campo Titulo é obrigatorio");
 
             builder.Property(b => b.DescricaoFeedBackPredicao)
             .IsRequired()
-            .HasColumnName("ds_feedback_postagem")
+            .HasColumnName("ds_feedback_predicao")
             .HasAnnotation("DescricaoFeedBackPredicao", "O campo Titulo é obrigatorio");
         }
     }

@@ -8,7 +8,10 @@
 
         public string DescricaoFeedBackPostagem { get; set; }
 
-        //1..N
-        public virtual IEnumerable<Conta>? Conta { get; set; }
+        public int ContaId { get; set; }
+        public Conta? Conta { get; set; }
+
+        public int PostagemId { get; set; }
+        public Postagem? Postagem { get; set; }
     }
 }

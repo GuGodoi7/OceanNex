@@ -10,6 +10,10 @@ namespace OceanNex.Models
         public string Senha { get; set; }
 
         public virtual void Login()
-        {}
+        { }
+
+        public virtual IEnumerable<Predicao>? Predicao { get; set; }
+        public virtual IEnumerable<FeedBackPostagem>? FeedBackPostagem { get; set; }
+        public virtual IEnumerable<FeedBackPredicao>? FeedBackPredicao { get; set; }
     }
 }

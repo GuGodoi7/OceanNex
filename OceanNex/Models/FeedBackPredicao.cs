@@ -8,8 +8,11 @@
 
         public string DescricaoFeedBackPredicao { get; set;}
 
-        //1..1
         public int? PredicaoId { get; set; }
         public Predicao? Predicao { get; set; }
+
+
+        public int ContaId { get; set; }
+        public Conta? Conta { get; set; }
     }
 }

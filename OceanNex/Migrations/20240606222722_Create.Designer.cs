@@ -12,8 +12,8 @@ using Oracle.EntityFrameworkCore.Metadata;
 namespace OceanNex.Migrations
 {
     [DbContext(typeof(OracleFIAPDbContext))]
-    [Migration("20240605185519_teste")]
-    partial class teste
+    [Migration("20240606222722_Create")]
+    partial class Create
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,29 +40,19 @@ namespace OceanNex.Migrations
                         .HasColumnName("ds_email")
                         .HasAnnotation("Email", "O campo Email é obrigatorio");
 
-                    b.Property<int?>("FeedBackPostagemId")
-                        .HasColumnType("NUMBER(10)");
-
                     b.Property<string>("NomeConta")
                         .IsRequired()
                         .HasColumnType("NVARCHAR2(2000)")
                         .HasColumnName("nm_conta")
                         .HasAnnotation("NomeConta", "O campo Email é obrigatorio");
 
-                    b.Property<int?>("PredicaoId")
-                        .HasColumnType("NUMBER(10)");
-
                     b.Property<string>("Senha")
                         .IsRequired()
                         .HasColumnType("NVARCHAR2(2000)")
                         .HasColumnName("ds_senha")
-                        .HasAnnotation("Senha", "O campo Senha é obrigatorio");
+                        .HasAnnotation("Email", "O campo Email é obrigatorio");
 
                     b.HasKey("ContaId");
-
-                    b.HasIndex("FeedBackPostagemId");
-
-                    b.HasIndex("PredicaoId");
 
                     b.ToTable("T_ONX_CONTA", (string)null);
 
@@ -78,11 +68,17 @@ namespace OceanNex.Migrations
 
                     OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FeedBackPostagemId"));
 
+                    b.Property<int>("ContaId")
+                        .HasColumnType("NUMBER(10)");
+
                     b.Property<string>("DescricaoFeedBackPostagem")
                         .IsRequired()
                         .HasColumnType("NVARCHAR2(2000)")
                         .HasColumnName("ds_feedback_postagem")
                         .HasAnnotation("DescricaoFeedBack", "O campo Titulo é obrigatorio");
+
+                    b.Property<int>("PostagemId")
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<string>("StatusFeedBackPostagem")
                         .IsRequired()
@@ -92,6 +88,10 @@ namespace OceanNex.Migrations
 
                     b.HasKey("FeedBackPostagemId");
 
+                    b.HasIndex("ContaId");
+
+                    b.HasIndex("PostagemId");
+
                     b.ToTable("T_ONX_FEEDBACK_POSTAGEM", (string)null);
                 });
 
@@ -100,14 +100,17 @@ namespace OceanNex.Migrations
                     b.Property<int>("FeedBackPredicaoId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("NUMBER(10)")
-                        .HasColumnName("id_feedback_postagem");
+                        .HasColumnName("id_feedback_predicao");
 
                     OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FeedBackPredicaoId"));
+
+                    b.Property<int>("ContaId")
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<string>("DescricaoFeedBackPredicao")
                         .IsRequired()
                         .HasColumnType("NVARCHAR2(2000)")
-                        .HasColumnName("ds_feedback_postagem")
+                        .HasColumnName("ds_feedback_predicao")
                         .HasAnnotation("DescricaoFeedBackPredicao", "O campo Titulo é obrigatorio");
 
                     b.Property<int?>("PredicaoId")
@@ -116,10 +119,12 @@ namespace OceanNex.Migrations
                     b.Property<string>("StatusFeedBackPredicao")
                         .IsRequired()
                         .HasColumnType("NVARCHAR2(2000)")
-                        .HasColumnName("st_feedback_postagem")
+                        .HasColumnName("st_feedback_predicao")
                         .HasAnnotation("DescricaoFeedBackPredicao", "O campo Titulo é obrigatorio");
 
                     b.HasKey("FeedBackPredicaoId");
+
+                    b.HasIndex("ContaId");
 
                     b.HasIndex("PredicaoId");
 
@@ -141,6 +146,12 @@ namespace OceanNex.Migrations
                         .HasColumnName("ds_bibliografia")
                         .HasAnnotation("Titulo", "O campo Titulo é obrigatorio");
 
+                    b.Property<int?>("BiologoContaId")
+                        .HasColumnType("NUMBER(10)");
+
+                    b.Property<int>("ContaId")
+                        .HasColumnType("NUMBER(10)");
+
                     b.Property<string>("Conteudo")
                         .IsRequired()
                         .HasColumnType("NVARCHAR2(2000)")
@@ -155,6 +166,8 @@ namespace OceanNex.Migrations
 
                     b.HasKey("PostagemId");
 
+                    b.HasIndex("BiologoContaId");
+
                     b.ToTable("T_ONX_POSTAGEM", (string)null);
                 });
 
@@ -167,10 +180,13 @@ namespace OceanNex.Migrations
 
                     OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PredicaoId"));
 
+                    b.Property<int>("ContaId")
+                        .HasColumnType("NUMBER(10)");
+
                     b.Property<string>("DescricaoPredicao")
                         .IsRequired()
                         .HasColumnType("NVARCHAR2(2000)")
-                        .HasColumnName("ds_predicao")
+                        .HasColumnName("ds_resultado_predicao")
                         .HasAnnotation("DescricaoPredicao", "O campo Descricao Predicao é obrigatorio");
 
                     b.Property<string>("TaxaPredicao")
@@ -180,6 +196,8 @@ namespace OceanNex.Migrations
                         .HasAnnotation("TaxaPredicao", "O campo Taxa Predicao é obrigatorio");
 
                     b.HasKey("PredicaoId");
+
+                    b.HasIndex("ContaId");
 
                     b.ToTable("T_ONX_PREDICAO", (string)null);
                 });
@@ -198,18 +216,12 @@ namespace OceanNex.Migrations
                         .IsRequired()
                         .HasMaxLength(11)
                         .HasColumnType("NVARCHAR2(11)")
-                        .HasColumnName("cd_crbio")
                         .HasAnnotation("CRBio", "O CRBio deve conter no máximo 11 caracteres.");
 
                     b.Property<long>("NumeroRegistro")
                         .HasColumnType("NUMBER(19)")
                         .HasColumnName("nr_Registro")
                         .HasAnnotation("Senha", "O campo Número Registro deve ser preenchido");
-
-                    b.Property<int?>("PostagemId")
-                        .HasColumnType("NUMBER(10)");
-
-                    b.HasIndex("PostagemId");
 
                     b.ToTable("T_ONX_BIOLOGO", (string)null);
                 });
@@ -226,24 +238,60 @@ namespace OceanNex.Migrations
                     b.ToTable("T_ONX_USUARIO", (string)null);
                 });
 
-            modelBuilder.Entity("OceanNex.Models.Conta", b =>
+            modelBuilder.Entity("OceanNex.Models.FeedBackPostagem", b =>
                 {
-                    b.HasOne("OceanNex.Models.FeedBackPostagem", null)
-                        .WithMany("Conta")
-                        .HasForeignKey("FeedBackPostagemId");
+                    b.HasOne("OceanNex.Models.Conta", "Conta")
+                        .WithMany("FeedBackPostagem")
+                        .HasForeignKey("ContaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("OceanNex.Models.Predicao", null)
-                        .WithMany("Conta")
-                        .HasForeignKey("PredicaoId");
+                    b.HasOne("OceanNex.Models.Postagem", "Postagem")
+                        .WithMany("FeedBackPostagens")
+                        .HasForeignKey("PostagemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Conta");
+
+                    b.Navigation("Postagem");
                 });
 
             modelBuilder.Entity("OceanNex.Models.FeedBackPredicao", b =>
                 {
+                    b.HasOne("OceanNex.Models.Conta", "Conta")
+                        .WithMany("FeedBackPredicao")
+                        .HasForeignKey("ContaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("OceanNex.Models.Predicao", "Predicao")
                         .WithMany()
                         .HasForeignKey("PredicaoId");
 
+                    b.Navigation("Conta");
+
                     b.Navigation("Predicao");
+                });
+
+            modelBuilder.Entity("OceanNex.Models.Postagem", b =>
+                {
+                    b.HasOne("OceanNex.Models.Biologo", "Biologo")
+                        .WithMany("Postagens")
+                        .HasForeignKey("BiologoContaId");
+
+                    b.Navigation("Biologo");
+                });
+
+            modelBuilder.Entity("OceanNex.Models.Predicao", b =>
+                {
+                    b.HasOne("OceanNex.Models.Conta", "Conta")
+                        .WithMany("Predicao")
+                        .HasForeignKey("ContaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Conta");
                 });
 
             modelBuilder.Entity("OceanNex.Models.Biologo", b =>
@@ -253,10 +301,6 @@ namespace OceanNex.Migrations
                         .HasForeignKey("OceanNex.Models.Biologo", "ContaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("OceanNex.Models.Postagem", null)
-                        .WithMany("Biologo")
-                        .HasForeignKey("PostagemId");
                 });
 
             modelBuilder.Entity("OceanNex.Models.Usuario", b =>
@@ -268,19 +312,23 @@ namespace OceanNex.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("OceanNex.Models.FeedBackPostagem", b =>
+            modelBuilder.Entity("OceanNex.Models.Conta", b =>
                 {
-                    b.Navigation("Conta");
+                    b.Navigation("FeedBackPostagem");
+
+                    b.Navigation("FeedBackPredicao");
+
+                    b.Navigation("Predicao");
                 });
 
             modelBuilder.Entity("OceanNex.Models.Postagem", b =>
                 {
-                    b.Navigation("Biologo");
+                    b.Navigation("FeedBackPostagens");
                 });
 
-            modelBuilder.Entity("OceanNex.Models.Predicao", b =>
+            modelBuilder.Entity("OceanNex.Models.Biologo", b =>
                 {
-                    b.Navigation("Conta");
+                    b.Navigation("Postagens");
                 });
 #pragma warning restore 612, 618
         }
